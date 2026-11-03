@@ -6,8 +6,6 @@ between `socket()` and a page in the browser: short reads and writes, request
 parsing, file serving, path confinement, processes and signals. The server should
 also handle hostile or broken clients without crashing or leaking resources.
 
-> ⚠️ This is a learning project. Do not expose it to the internet.
-
 ## Quick start
 
 ```sh
@@ -49,14 +47,8 @@ fuzz/
   fuzz_parse.c   # libFuzzer entry point
   corpus/        # seed inputs + saved crashes
 www/             # document root
-NOTES.md         # bug log: symptom → cause → why the fix works
+
 ```
-
-**Design rule:** the parser does not know about sockets.
-`parse_request(buf, len, &req)` returns _done_, _need more data_ or an error
-code. The socket code only accumulates bytes and calls the parser. That makes
-the parser testable and fuzzable without a network.
-
 ---
 
 ## Roadmap
